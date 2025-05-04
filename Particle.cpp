@@ -5,16 +5,27 @@
 using namespace Matrices;
 using namespace sf;
 
-Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition)
+Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition) : m_A(2, numPoints)
 {
-
+    m_ttl = TTL;
+    m_numPoints = numPoints;
+    m_radiansPerSec = ((float)rand() / (RAND_MAX)) * M_PI;
+    m_cartesianPlane.setCenter(0, 0);
+    m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y);
+    // Vector2f m_centerCoordinate;
+    // float m_vx;
+    // float m_vy;
+    // Color m_color1;
+    // Color m_color2;
 }
 
-void Particle::draw(RenderTarget& target, RenderStates states) const override{
+void Particle::draw(RenderTarget& target, RenderStates states) const
+{
     
 }
 
-void Particle::update(float dt){
+void Particle::update(float dt)
+{
 
 }
 
