@@ -7,16 +7,32 @@ using namespace sf;
 
 Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition) : m_A(2, numPoints)
 {
+    // Construct default var values:
     m_ttl = TTL;
     m_numPoints = numPoints;
     m_radiansPerSec = ((float)rand() / (RAND_MAX)) * M_PI;
     m_cartesianPlane.setCenter(0, 0);
     m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y);
-    // Vector2f m_centerCoordinate;
-    // float m_vx;
-    // float m_vy;
-    // Color m_color1;
-    // Color m_color2;
+    m_centerCoordinate = target.mapPixelToCoords(mouseClickPosition, m_cartesianPlane);
+    m_vx = rand() % 2;
+    m_vy = rand() % 2;
+    // TODO: Figure out how to set the colors to random colors here.
+    m_color1 = Color::Blue;
+    m_color2 = Color::Yellow;
+
+    // Algorithm:
+    double theta = (M_PI / 3); // initialize to 60 (pi / 3) degree angle.
+    double dTheta = 2 * M_PI / (numPoints - 1);
+    for(int j = 0; j < numPoints; j++)
+    {
+        double r, dx, dy;
+        r = rand() % (80 - 20 + 1) + 20;
+        dx = r * cos(theta);
+        dy = r * sin(theta);
+        m_A(0, j) = m_centerCoordinate.x + dx;
+        m_A(1, j) = m_centerCoordinate.y + dy;
+        theta += dTheta;
+    }
 }
 
 void Particle::draw(RenderTarget& target, RenderStates states) const
