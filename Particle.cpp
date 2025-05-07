@@ -21,7 +21,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     m_color2 = Color::Yellow;
 
     // Algorithm:
-    double theta = (M_PI / 3); // initialize to 60 (pi / 3) degree angle.
+    double theta = (M_PI / 3); // initialize to 60 degree (pi / 3) angle.
     double dTheta = 2 * M_PI / (numPoints - 1);
     for(int j = 0; j < numPoints; j++)
     {
