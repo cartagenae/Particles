@@ -17,8 +17,10 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
     m_vx = rand() % 2;
     m_vy = rand() % 2;
     // TODO: Figure out how to set the colors to random colors here.
-    m_color1 = Color::Blue;
-    m_color2 = Color::Yellow;
+    // m_color1 = Color::Blue;
+    // m_color2 = Color::Yellow;
+    m_color1 = generateRandomColor();
+    m_color2 = generateRandomColor();
 
     // Algorithm:
     double theta = (M_PI / 3); // initialize to 60 degree (pi / 3) angle.
@@ -33,6 +35,13 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosit
         m_A(1, j) = m_centerCoordinate.y + dy;
         theta += dTheta;
     }
+}
+
+// This function generates a random number between 0 and 255 inclusive
+// for each color value (r, g, b) and returns them for their appropriate vars
+Color Particle::generateRandomColor()
+{
+    return Color(rand() % 256, rand() % 256, rand() % 256);
 }
 
 void Particle::draw(RenderTarget& target, RenderStates states) const
@@ -67,7 +76,7 @@ void Particle::update(float dt)
 
 void Particle::translate(double xShift, double yShift)
 {
-    TranslationMatrix T(xShift, yShift, 2);
+    TranslationMatrix T(xShift, yShift, m_A.getCols());
     m_A = T + m_A;
     
     m_centerCoordinate.x += xShift;
