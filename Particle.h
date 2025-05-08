@@ -1,7 +1,9 @@
 #pragma once
 #include "Matrices.h"
 #include <SFML/Graphics.hpp>
+#ifndef M_PI
 #define M_PI 3.1415926535897932384626433
+#endif
 
 const float G = 1000; //Gravity
 const float TTL = 5.0; //Time To Live
@@ -14,6 +16,7 @@ class Particle : public Drawable
 {
 public:
     Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosition);
+    Color generateRandomColor();
     virtual void draw(RenderTarget& target, RenderStates states) const override;
     void update(float dt);
     float getTTL() { return m_ttl; }
